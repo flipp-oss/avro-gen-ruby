@@ -3,15 +3,14 @@
 require_relative 'base'
 require 'json'
 
-module Deimos
+module AvroGen
   module SchemaClass
     # Base Class for Enum Classes generated from Avro.
     class Enum < Base
-
       # @return [String]
       attr_accessor :value
 
-      # @param other [Deimos::SchemaClass::Enum]
+      # @param other [AvroGen::SchemaClass::Enum]
       # @return [Boolean]
       def ==(other)
         other.is_a?(self.class) ? other.value == @value : other == @value

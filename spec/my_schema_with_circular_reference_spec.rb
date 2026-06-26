@@ -45,7 +45,6 @@ RSpec.describe Schemas::MyNamespace::MySchemaWithCircularReference do
       klass = described_class.new(**payload_hash)
       expect(klass).to be_instance_of(described_class)
     end
-
   end
 
   describe 'base class methods' do
@@ -64,22 +63,22 @@ RSpec.describe Schemas::MyNamespace::MySchemaWithCircularReference do
       payload_h = {
         'properties' => {
           a_boolean: {
-            'property' =>true
+            'property' => true
           },
           an_integer: {
-            'property' =>1
+            'property' => 1
           },
           a_float: {
-            'property' =>4.5
+            'property' => 4.5
           },
           a_string: {
-            'property' =>'string'
+            'property' => 'string'
           },
           an_array: {
-            'property' =>[1, 2, 3]
+            'property' => [1, 2, 3]
           },
           an_hash: {
-            'property' =>{
+            'property' => {
               'a_key' => 'a_value'
             }
           }

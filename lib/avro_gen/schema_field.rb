@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Deimos
+module AvroGen
   # Represents a field in the schema.
   class SchemaField
     # @return [String]
