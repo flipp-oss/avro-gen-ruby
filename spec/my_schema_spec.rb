@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Schemas::MyNamespace::MySchema do
   let(:key) { Schemas::MyNamespace::MySchemaKey.new(test_id: 123) }
 

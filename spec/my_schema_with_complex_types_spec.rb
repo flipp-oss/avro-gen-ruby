@@ -23,7 +23,6 @@ RSpec.describe Schemas::MyNamespace::MySchemaWithComplexType do
   end
 
   describe 'class initialization' do
-
     it 'should initialize the class from keyword arguments' do
       klass = described_class.new(
         test_id: payload_hash[:test_id],
@@ -48,7 +47,6 @@ RSpec.describe Schemas::MyNamespace::MySchemaWithComplexType do
       klass = described_class.new(**payload_hash)
       expect(klass).to be_instance_of(described_class)
     end
-
   end
 
   describe '.tombstone' do

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require_relative 'base'
+require_relative '../schema_validator'
 require 'json'
+require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/object/try'
 
-module Deimos
+module AvroGen
   module SchemaClass
     # Base Class of Record Classes generated from Avro.
     class Record < Base
-
       attr_accessor :tombstone_key, :_from_message
 
       # Converts the object attributes to a hash which can be used for Kafka
@@ -61,10 +63,16 @@ module Deimos
         "#{namespace}.#{schema}"
       end
 
-      # Returns the schema validator from the schema backend
-      # @return [Deimos::SchemaBackends::Base]
+      # Returns a validator that can load the schema and its fields. Reuses a
+      # shared, path-scoped schema store so repeated lookups don't re-parse the
+      # .avsc files.
+      # @return [AvroGen::SchemaValidator]
       def validator
-        Deimos.schema_backend(schema: schema, namespace: namespace)
+        @validator ||= AvroGen::SchemaValidator.new(
+          schema: schema,
+          namespace: namespace,
+          store: AvroGen::SchemaValidator.store_for(AvroGen.config.schema_path)
+        )
       end
 
       # @return [Array<String>] an array of fields names in the schema.
@@ -72,7 +80,7 @@ module Deimos
         validator.schema_fields.map(&:name)
       end
 
-      # Used internally within Deimos so that we don't crash on unknown fields that come from
+      # Used internally so that we don't crash on unknown fields that come from
       # a backwards compatible schema.
       # @param kwargs [Hash] the attributes to set on the new object.
       # @return [SchemaClass::Record]

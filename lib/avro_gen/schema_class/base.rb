@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative '../errors'
 
-module Deimos
+module AvroGen
   module SchemaClass
     # Base Class for Schema Classes generated from Avro.
     class Base
-
       # @param _args [Array<Object>]
       def initialize(*_args)
       end

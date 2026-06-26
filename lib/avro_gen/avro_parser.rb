@@ -28,14 +28,14 @@ module AvroGen
         when :record, :enum
           schema_classname(avro_schema)
         when :array
-          arr_t = field_type(Deimos::SchemaField.new('n/a', avro_schema.items).type)
+          arr_t = field_type(AvroGen::SchemaField.new('n/a', avro_schema.items).type)
           "Array<#{arr_t}>"
         when :map
-          map_t = field_type(Deimos::SchemaField.new('n/a', avro_schema.values).type)
+          map_t = field_type(AvroGen::SchemaField.new('n/a', avro_schema.values).type)
           "Hash<String, #{map_t}>"
         when :union
           types = avro_schema.schemas.map do |t|
-            field_type(Deimos::SchemaField.new('n/a', t).type)
+            field_type(AvroGen::SchemaField.new('n/a', t).type)
           end
           types.join(', ')
         when :null
